@@ -13,7 +13,7 @@ import java.util.Set;
 public interface CalendarService {
 
     void addEvent(Event event);
-    void addEvent(String title, String description, GregorianCalendar startDate, GregorianCalendar endDate, Set<Participant> participants);
+    Event addEvent(String title, String description, GregorianCalendar startDate, GregorianCalendar endDate, Set<Participant> participants);
     List<Event> getEventByTitle(String title);
 
 

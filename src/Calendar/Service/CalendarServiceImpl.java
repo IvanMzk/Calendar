@@ -26,7 +26,7 @@ public class CalendarServiceImpl implements CalendarService{
     }
 
     @Override
-    public void addEvent(String title, String description, GregorianCalendar startDate, GregorianCalendar endDate, Set<Participant> participants) {
+    public Event addEvent(String title, String description, GregorianCalendar startDate, GregorianCalendar endDate, Set<Participant> participants) {
 
         Event event = new Event.EventBuilder(title)
                 .description(description)
@@ -35,7 +35,8 @@ public class CalendarServiceImpl implements CalendarService{
                 .participants(participants)
                 .build();
 
-        event.publish(dataStore);
+        addEvent(event);
+        return event;
     }
 
     @Override
@@ -43,4 +44,6 @@ public class CalendarServiceImpl implements CalendarService{
 
         return dataStore.getEventByTitle(title);
     }
+
+
 }

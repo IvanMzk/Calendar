@@ -2,6 +2,7 @@ package Calendar;
 
 import Calendar.DataStore.DataStore;
 import Calendar.DataStore.MapDataStoreImpl;
+import Calendar.Event.Event;
 import Calendar.Service.CalendarService;
 import Calendar.Service.CalendarServiceImpl;
 
@@ -15,13 +16,15 @@ public class Main {
 
         DataStore dataStore = new MapDataStoreImpl();
         CalendarService calendarService = new CalendarServiceImpl(dataStore);
-        String[] titles = {"t1","t2","t2","t4","t5"};
+        String[] titles = {"t1","t2","t2","t4","t2"};
         String[] descriptions = {"d1","d2","d3","d4","d5"};
         int i = 0;
+        Event event;
         for (String title : titles)
         {
-            calendarService.addEvent(title, descriptions[i], null, null, null);
+            event = calendarService.addEvent(title, descriptions[i], null, null, null);
             i++;
+            System.out.println(event.toString());
         }
 
         System.out.println(calendarService.getEventByTitle("t2").toString());
