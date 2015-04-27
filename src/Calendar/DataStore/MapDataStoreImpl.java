@@ -46,9 +46,10 @@ public class MapDataStoreImpl implements DataStore{
 
     private void addToTitleIndex(Event event){
         UUID id = event.getId();
-        if (null == titleIndex.get(id))
-        {titleIndex.put(event.getTitle(), new LinkedList<UUID>());}
-        titleIndex.get(event.getTitle()).add(id);
+        String title = event.getTitle();
+        if (null == titleIndex.get(title))
+        {titleIndex.put(title, new LinkedList<UUID>());}
+        titleIndex.get(title).add(id);
     }
 
     //!!!should be modified if new index were added
