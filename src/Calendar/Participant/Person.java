@@ -31,6 +31,31 @@ public class Person implements Participant {
     }
 
     @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof Person)) return false;
+
+        Person person = (Person) o;
+
+        if (email != null ? !email.equals(person.email) : person.email != null) return false;
+        if (!firstName.equals(person.firstName)) return false;
+        if (phone != null ? !phone.equals(person.phone) : person.phone != null) return false;
+        if (!secondName.equals(person.secondName)) return false;
+
+        return true;
+    }
+
+    @Override
+    public int hashCode() {
+        int result = firstName.hashCode();
+        result = 31 * result + secondName.hashCode();
+        result = 31 * result + (email != null ? email.hashCode() : 0);
+        result = 31 * result + (phone != null ? phone.hashCode() : 0);
+        return result;
+    }
+
+    @Override
+
     public String getPhone() {
         return phone;
     }

@@ -25,10 +25,13 @@ public class MapDataStoreImpl implements DataStore{
     }
 
     public Event removeEventByID(UUID id){
-        Event event = store.get(id);
-        store.remove(id);
-        removeFromIndex(event);
-        return event;
+        if (store.containsKey(id)) {
+            Event event = store.get(id);
+            store.remove(id);
+            removeFromIndex(event);
+            return event;
+        }
+        return null;
     }
 
     public List<Event> getEventByTitle(String title){
@@ -52,7 +55,7 @@ public class MapDataStoreImpl implements DataStore{
         titleIndex.get(title).add(id);
     }
 
-    //!!!should be modified if new index were added
+    //!!!should be modified when adding new index
     private void removeFromIndex(Event event){
 
         //remove from title index
