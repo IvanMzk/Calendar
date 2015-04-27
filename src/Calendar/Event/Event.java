@@ -1,5 +1,6 @@
 package Calendar.Event;
 
+import Calendar.DataStore.DataStore;
 import Calendar.Participant.Participant;
 
 import java.util.GregorianCalendar;
@@ -23,11 +24,16 @@ public class Event {
         this.id = builder.id;
         this.title = builder.title;
         this.description = builder.description;
-        this.startDate = (GregorianCalendar) builder.startDate.clone();
-        this.endDate = (GregorianCalendar) builder.endDate.clone();
+        this.startDate = builder.startDate != null ? (GregorianCalendar) builder.startDate.clone() : null;
+        this.endDate = builder.endDate != null ? (GregorianCalendar) builder.endDate.clone() : null;
         this.participants = builder.participants;
 
     }
+
+    public void publish(DataStore dataStore){
+        dataStore.addEvent(this);
+    }
+
 
     public String getTitle() {
         return title;
@@ -38,11 +44,11 @@ public class Event {
     }
 
     public GregorianCalendar getStartDate() {
-        return (GregorianCalendar) startDate.clone();
+        return startDate != null ? (GregorianCalendar) startDate.clone() : null;
     }
 
     public GregorianCalendar getEndDate() {
-        return (GregorianCalendar) endDate.clone();
+        return endDate != null ? (GregorianCalendar) endDate.clone() : null;
     }
 
     public Set<Participant> getParticipants() {
@@ -71,6 +77,17 @@ public class Event {
     }
 
     @Override
+    public String toString() {
+        return "Event{" +
+                "id=" + id +
+                ", title='" + title + '\'' +
+                ", description='" + description + '\'' +
+                ", startDate=" + startDate +
+                ", endDate=" + endDate +
+                '}';
+    }
+
+    @Override
     public int hashCode() {
         int result = id.hashCode();
         result = 31 * result + title.hashCode();
@@ -93,7 +110,7 @@ public class Event {
 
         public EventBuilder(String title) {
             this.title = title;
-            id = UUID.fromString(title);
+            id = UUID.nameUUIDFromBytes(title.getBytes());
         }
 
         public EventBuilder description(String description){

@@ -19,7 +19,9 @@ public class MapDataStoreImpl implements DataStore{
     }
 
     public Event getEventByID(UUID id){
-        return store.get(id);
+        if (store.containsKey(id))
+        {return store.get(id);}
+        return null;
     }
 
     public Event removeEventByID(UUID id){
