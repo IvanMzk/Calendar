@@ -23,7 +23,8 @@ public class CalendarServiceImplTest {
         GregorianCalendar endDate = new GregorianCalendar(2015, Calendar.APRIL, Calendar.TUESDAY, 11, 0);
         Set<Participant> participants = new HashSet<Participant>(Arrays.asList(new Person.PersonBuilder("Ivan", "M").build()));
 
-        Event expectedValue = new Event.EventBuilder(title)
+        UUID id = UUID.randomUUID();
+        Event expectedValue = new Event.EventBuilder(title, id)
                 .description(description)
                 .startDate(startDate)
                 .endDate(endDate)
@@ -38,7 +39,7 @@ public class CalendarServiceImplTest {
         CalendarService testClass = spy(calendarService);
 
         //ivoke method to test
-        Event returnedValue = testClass.addEvent(title, description, startDate, endDate,participants);
+        Event returnedValue = testClass.addEvent(id, title, description, startDate, endDate,participants);
 
         //assert returned value
         assertEquals(returnedValue, expectedValue);
@@ -50,7 +51,8 @@ public class CalendarServiceImplTest {
     @Test
     public void testAddEvent1() throws Exception {
         //init inputs
-        Event inputValue = new Event.EventBuilder("testing").build();
+        UUID id = UUID.randomUUID();
+        Event inputValue = new Event.EventBuilder("testing", id).build();
 
         //init mock
         Event event = spy(inputValue);
@@ -70,7 +72,8 @@ public class CalendarServiceImplTest {
     public void testGetEventByTitle() throws Exception {
         //init inputs
         String inputValue = "test title";
-        List<Event> expectedValue = Arrays.asList(new Event.EventBuilder("test title").build());
+        UUID id = UUID.randomUUID();
+        List<Event> expectedValue = Arrays.asList(new Event.EventBuilder("test title", id).build());
 
         //init mock
         DataStore dataStore = mock(MapDataStoreImpl.class);

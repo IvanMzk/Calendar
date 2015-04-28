@@ -6,6 +6,8 @@ import Calendar.Event.Event;
 import Calendar.Service.CalendarService;
 import Calendar.Service.CalendarServiceImpl;
 
+import java.util.UUID;
+
 /**
  * Created by ivann on 27.04.15.
  */
@@ -22,7 +24,8 @@ public class Main {
         Event event;
         for (String title : titles)
         {
-            event = calendarService.addEvent(title, descriptions[i], null, null, null);
+            UUID id = UUID.randomUUID();
+            event = calendarService.addEvent(id, title, descriptions[i], null, null, null);
             i++;
             System.out.println(event.toString());
         }

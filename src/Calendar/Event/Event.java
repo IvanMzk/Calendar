@@ -68,6 +68,7 @@ public class Event {
 
         if (description != null ? !description.equals(event.description) : event.description != null) return false;
         if (endDate != null ? !endDate.equals(event.endDate) : event.endDate != null) return false;
+        if (!id.equals(event.id)) return false;
         if (participants != null ? !participants.equals(event.participants) : event.participants != null) return false;
         if (startDate != null ? !startDate.equals(event.startDate) : event.startDate != null) return false;
         if (!title.equals(event.title)) return false;
@@ -77,7 +78,8 @@ public class Event {
 
     @Override
     public int hashCode() {
-        int result = title.hashCode();
+        int result = id.hashCode();
+        result = 31 * result + title.hashCode();
         result = 31 * result + (description != null ? description.hashCode() : 0);
         result = 31 * result + (startDate != null ? startDate.hashCode() : 0);
         result = 31 * result + (endDate != null ? endDate.hashCode() : 0);
@@ -106,9 +108,9 @@ public class Event {
         private Set<Participant> participants;
 
 
-        public EventBuilder(String title) {
+        public EventBuilder(String title, UUID id) {
             this.title = title;
-            id = UUID.randomUUID();
+            this.id = id;
         }
 
         public EventBuilder description(String description){

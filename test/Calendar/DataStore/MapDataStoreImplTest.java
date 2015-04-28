@@ -14,7 +14,8 @@ public class MapDataStoreImplTest {
     @Test
     public void testAddEvent() throws Exception {
         //init inputs
-        Event inputValue = new Event.EventBuilder("test title")
+        UUID id = UUID.randomUUID();
+        Event inputValue = new Event.EventBuilder("test title",id)
                 .description("test description")
                 .startDate(new GregorianCalendar(2015, Calendar.APRIL, Calendar.TUESDAY, 9,0))
                 .endDate(new GregorianCalendar(2015, Calendar.APRIL, Calendar.TUESDAY, 11, 0))
@@ -22,7 +23,7 @@ public class MapDataStoreImplTest {
                 .build();
 
 
-        Event expectedValue = new Event.EventBuilder("test title")
+        Event expectedValue = new Event.EventBuilder("test title",id)
                 .description("test description")
                 .startDate(new GregorianCalendar(2015, Calendar.APRIL, Calendar.TUESDAY, 9,0))
                 .endDate(new GregorianCalendar(2015, Calendar.APRIL, Calendar.TUESDAY, 11, 0))
@@ -45,17 +46,17 @@ public class MapDataStoreImplTest {
     public void testGetEventByID() throws Exception {
 
         //init inputs
-        Event event = new Event.EventBuilder("test title")
+        UUID inputValue = UUID.randomUUID();
+        Event event = new Event.EventBuilder("test title",inputValue)
                 .description("test description")
                 .startDate(new GregorianCalendar(2015, Calendar.APRIL, Calendar.TUESDAY, 9,0))
                 .endDate(new GregorianCalendar(2015, Calendar.APRIL, Calendar.TUESDAY, 11,0))
                 .participants(new HashSet<Participant>(Arrays.asList(new Person.PersonBuilder("Ivan", "M").build())))
                 .build();
 
-        UUID inputValue = event.getId();
 
 
-        Event expectedValue = new Event.EventBuilder("test title")
+        Event expectedValue = new Event.EventBuilder("test title",inputValue)
                 .description("test description")
                 .startDate(new GregorianCalendar(2015, Calendar.APRIL, Calendar.TUESDAY, 9,0))
                 .endDate(new GregorianCalendar(2015, Calendar.APRIL, Calendar.TUESDAY, 11,0))
@@ -78,17 +79,18 @@ public class MapDataStoreImplTest {
     public void testRemoveEventByID() throws Exception {
 
         //init inputs
-        Event event = new Event.EventBuilder("test title")
+        UUID inputValue = UUID.randomUUID();
+        Event event = new Event.EventBuilder("test title", inputValue)
                 .description("test description")
                 .startDate(new GregorianCalendar(2015, Calendar.APRIL, Calendar.TUESDAY, 9,0))
                 .endDate(new GregorianCalendar(2015, Calendar.APRIL, Calendar.TUESDAY, 11,0))
                 .participants(new HashSet<Participant>(Arrays.asList(new Person.PersonBuilder("Ivan", "M").build())))
                 .build();
 
-        UUID inputValue = event.getId();
 
 
-        Event expectedValue = new Event.EventBuilder("test title")
+
+        Event expectedValue = new Event.EventBuilder("test title", inputValue)
                 .description("test description")
                 .startDate(new GregorianCalendar(2015, Calendar.APRIL, Calendar.TUESDAY, 9,0))
                 .endDate(new GregorianCalendar(2015, Calendar.APRIL, Calendar.TUESDAY, 11,0))
@@ -111,7 +113,8 @@ public class MapDataStoreImplTest {
     @Test
     public void testGetEventByTitle() throws Exception {
         //init inputs
-        Event event = new Event.EventBuilder("test title")
+        UUID id = UUID.randomUUID();
+        Event event = new Event.EventBuilder("test title",id)
                 .description("test description")
                 .startDate(new GregorianCalendar(2015, Calendar.APRIL, Calendar.TUESDAY, 9,0))
                 .endDate(new GregorianCalendar(2015, Calendar.APRIL, Calendar.TUESDAY, 11,0))

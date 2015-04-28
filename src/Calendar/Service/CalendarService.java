@@ -6,6 +6,7 @@ import Calendar.Participant.Participant;
 import java.util.GregorianCalendar;
 import java.util.List;
 import java.util.Set;
+import java.util.UUID;
 
 /**
  * Created by ivann on 27.04.15.
@@ -13,7 +14,7 @@ import java.util.Set;
 public interface CalendarService {
 
     void addEvent(Event event);
-    Event addEvent(String title, String description, GregorianCalendar startDate, GregorianCalendar endDate, Set<Participant> participants);
+    Event addEvent(UUID id, String title, String description, GregorianCalendar startDate, GregorianCalendar endDate, Set<Participant> participants);
     List<Event> getEventByTitle(String title);
 
 

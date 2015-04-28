@@ -7,6 +7,7 @@ import Calendar.Participant.Participant;
 import java.util.GregorianCalendar;
 import java.util.List;
 import java.util.Set;
+import java.util.UUID;
 
 /**
  * Created by ivann on 27.04.15.
@@ -26,9 +27,9 @@ public class CalendarServiceImpl implements CalendarService{
     }
 
     @Override
-    public Event addEvent(String title, String description, GregorianCalendar startDate, GregorianCalendar endDate, Set<Participant> participants) {
+    public Event addEvent(UUID id, String title, String description, GregorianCalendar startDate, GregorianCalendar endDate, Set<Participant> participants) {
 
-        Event event = new Event.EventBuilder(title)
+        Event event = new Event.EventBuilder(title, id)
                 .description(description)
                 .startDate(startDate)
                 .endDate(endDate)
