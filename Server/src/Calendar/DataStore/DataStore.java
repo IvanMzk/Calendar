@@ -1,3 +1,4 @@
+//local code review (vtegza): packages name should be in lower case, ex: calendar.datastore @ 04.05.15
 package Calendar.DataStore;
 
 import Calendar.Event.Event;

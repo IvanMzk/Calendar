@@ -103,6 +103,7 @@ public class MapDataStoreImplTest {
 
         //invoke method to test
         Event returnedValue = dataStore.removeEventByID(inputValue);
+        //local code review (vtegza): not used @ 04.05.15
         Event returnedNullValue = dataStore.removeEventByID(inputValue);
 
         //assert
