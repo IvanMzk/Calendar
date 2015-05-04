@@ -2,8 +2,8 @@ package Calendar.Event;
 
 import Calendar.DataStore.DataStore;
 import Calendar.Participant.Participant;
-import sun.misc.UUDecoder;
 
+import java.io.Serializable;
 import java.util.GregorianCalendar;
 import java.util.HashSet;
 import java.util.Set;
@@ -12,7 +12,7 @@ import java.util.UUID;
 /**
  * Created by ivann on 27.04.15.
  */
-public class Event {
+public class Event implements Serializable {
 
     private final UUID id;
     private final String title;

@@ -2,7 +2,6 @@ package Calendar.DataStore;
 
 import Calendar.Event.Event;
 import Calendar.Participant.Participant;
-
 import java.util.*;
 
 /**
@@ -15,18 +14,21 @@ public class MapDataStoreImpl implements DataStore{
     private final Map<Participant, List<UUID>> participantIndex = new HashMap<Participant, List<UUID>>();
 
 
+    @Override
     public void addEvent(Event event){
         store.put(event.getId(), event);
         addToTitleIndex(event);
         addToParticipantIndex(event);
     }
 
+    @Override
     public Event getEventByID(UUID id){
         if (store.containsKey(id))
         {return store.get(id);}
         return null;
     }
 
+    @Override
     public Event removeEventByID(UUID id){
         if (store.containsKey(id)) {
             Event event = store.get(id);
@@ -38,6 +40,7 @@ public class MapDataStoreImpl implements DataStore{
         return null;
     }
 
+    @Override
     public List<Event> getEventByTitle(String title){
 
         if (titleIndex.containsKey(title)) {
@@ -50,6 +53,17 @@ public class MapDataStoreImpl implements DataStore{
         return null;
     }
 
+    @Override
+    public List<Event> getEventByParticipant(Participant participant) {
+        if (participantIndex.containsKey(participant)){
+            List<UUID> idList = participantIndex.get(participant);
+            List<Event> result = new LinkedList<Event>();
+            for (UUID item : idList)
+            {result.add(store.get(item));}
+            return result;
+        }
+        return null;
+    }
 
     private void addToTitleIndex(Event event){
         UUID id = event.getId();
