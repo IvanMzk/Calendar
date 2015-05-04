@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+    <bean id="dataStore" class="Calendar.DataStore.MapDataStoreImpl"/>
+
+    <bean id="calendarService" class="Calendar.Service.CalendarServiceImpl">
+        <constructor-arg ref="dataStore"/>
+    </bean>
+
+
+    <bean class="org.springframework.remoting.rmi.RmiServiceExporter">
+        <property name="serviceName" value="CalendarService"/>
+        <property name="service" ref="calendarService"/>
+        <property name="serviceInterface" value="Calendar.Service.CalendarService"/>
+        <!--<property name="registryHost" value="127.0.0.1"/>-->
+        <property name="registryPort" value="11099"/>
+    </bean>
+
+
+</beans>
