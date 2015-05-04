@@ -16,6 +16,7 @@ public interface CalendarService {
     void addEvent(Event event);
     Event addEvent(UUID id, String title, String description, GregorianCalendar startDate, GregorianCalendar endDate, Set<Participant> participants);
     List<Event> getEventByTitle(String title);
+    Event addParticipant(Event event, Participant participant);
 
 
 }

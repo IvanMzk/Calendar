@@ -46,5 +46,29 @@ public class CalendarServiceImpl implements CalendarService{
         return dataStore.getEventByTitle(title);
     }
 
+    @Override
+    public Event addParticipant(Event event, Participant participant) {
+
+        Event originEvent = dataStore.getEventByID(event.getId());
+        if (null == originEvent)
+        {return null;}
+        Set<Participant> originEventParticipants = originEvent.getParticipants();
+        if (!originEventParticipants.add(participant))
+        {
+            //participant already present for the event
+            return originEvent;
+        }
+
+        //no such participant, so create new event with updated participants
+        dataStore.removeEventByID(event.getId());
+        UUID newId = UUID.randomUUID();
+        Event newEvent = new Event.EventBuilder(originEvent)
+                .id(newId)
+                .participants(originEventParticipants)
+                .build();
+        newEvent.publish(dataStore);
+        return newEvent;
+    }
+
 
 }

@@ -2,8 +2,10 @@ package Calendar.Event;
 
 import Calendar.DataStore.DataStore;
 import Calendar.Participant.Participant;
+import sun.misc.UUDecoder;
 
 import java.util.GregorianCalendar;
+import java.util.HashSet;
 import java.util.Set;
 import java.util.UUID;
 
@@ -51,9 +53,7 @@ public class Event {
         return endDate != null ? (GregorianCalendar) endDate.clone() : null;
     }
 
-    public Set<Participant> getParticipants() {
-        return participants;
-    }
+    public Set<Participant> getParticipants() {return participants != null ? new HashSet<Participant>(participants) : null;}
 
     public UUID getId() {
         return id;
@@ -100,8 +100,8 @@ public class Event {
 
     public static class EventBuilder{
 
-        private final UUID id;
-        private final String title;
+        private UUID id;
+        private String title;
         private String description;
         private GregorianCalendar startDate;
         private GregorianCalendar endDate;
@@ -111,6 +111,25 @@ public class Event {
         public EventBuilder(String title, UUID id) {
             this.title = title;
             this.id = id;
+        }
+
+        public EventBuilder(Event event){
+            this.id = event.getId();
+            this.title = event.getTitle();
+            this.description = event.getDescription();
+            this.startDate = event.getStartDate();
+            this.endDate = event.getEndDate();
+            this.participants = event.getParticipants();
+        }
+
+        public EventBuilder id(UUID id){
+            this.id = id;
+            return this;
+        }
+
+        public EventBuilder title(String title){
+            this.title = title;
+            return this;
         }
 
         public EventBuilder description(String description){
