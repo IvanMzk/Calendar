@@ -5,6 +5,8 @@
       <configuration>
         <fileset id="fileset" name="Spring Client Application Context" removed="false">
           <file>file://$MODULE_DIR$/clientContext.xml</file>
+          <file>file://$MODULE_DIR$/src/clientContext.xml</file>
+          <file>file://$MODULE_DIR$/src/clientContext.xml</file>
         </fileset>
       </configuration>
     </facet>

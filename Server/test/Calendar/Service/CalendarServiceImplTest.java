@@ -69,6 +69,45 @@ public class CalendarServiceImplTest {
     }
 
     @Test
+    public void testAddEventOnDay() throws Exception{
+
+        //init inputs
+        UUID id = UUID.randomUUID();
+        String title = "training";
+        String description = "java training at diosoft";
+        Integer year = 2015;
+        Integer month = Calendar.MAY;
+        Integer dayOfMonth = 6;
+        Integer daysLong = 2;
+        GregorianCalendar startDate = new GregorianCalendar(year, month ,dayOfMonth);
+        GregorianCalendar endDate = new GregorianCalendar(year, month ,dayOfMonth+daysLong);
+        Set<Participant> participants = new HashSet<Participant>(Arrays.asList(new Person.PersonBuilder("Ivan", "M").build()));
+
+        Event expectedValue = new Event.EventBuilder(title, id)
+                .description(description)
+                .startDate(startDate)
+                .endDate(endDate)
+                .participants(participants)
+                .build();
+
+        //init mock
+
+        //init class to test
+        DataStore dataStore = new MapDataStoreImpl();
+        CalendarService calendarService = new CalendarServiceImpl(dataStore);
+        CalendarService testClass = spy(calendarService);
+
+        //ivoke method to test
+        Event returnedValue = testClass.addEventOnDay(id, title, description, year, month, dayOfMonth, daysLong, participants);
+
+        //assert returned value
+        assertEquals(returnedValue, expectedValue);
+
+        //verify mock
+        verify(testClass).addEvent(expectedValue);
+    }
+
+    @Test
     public void testGetEventByTitle() throws Exception {
         //init inputs
         String inputValue = "test title";
@@ -89,4 +128,24 @@ public class CalendarServiceImplTest {
         assertEquals(returnedValue, expectedValue);
 
     }
+
+    @Test
+    public void testGetEventByParticipant()throws Exception{
+
+        assertTrue(false);
+    }
+
+    @Test
+    public void testAddParticipant() throws Exception{
+
+        assertTrue(false);
+    }
+
+    @Test
+    public void testIsFree() throws Exception{
+
+        assertTrue(false);
+    }
+
+
 }

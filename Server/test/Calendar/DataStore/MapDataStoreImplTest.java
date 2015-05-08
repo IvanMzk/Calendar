@@ -138,4 +138,11 @@ public class MapDataStoreImplTest {
         //assert
         assertEquals(expectedValue, returnedValue);
     }
+
+    @Test
+    public void testGetEventByParticipant()throws Exception{
+
+        assertTrue(false);
+    }
+
 }
