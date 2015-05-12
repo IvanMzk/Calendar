@@ -81,7 +81,7 @@ public class CalendarServiceImpl implements CalendarService{
         {return null;}
         if (date == null)
         {return result;}
-        for (Iterator<Event> iterator = result.iterator(); iterator.hasNext();){
+        for (ListIterator<Event> iterator = result.listIterator(); iterator.hasNext();){
             Event item = iterator.next();
             if (date.compareTo(item.getStartDate())<0 || date.compareTo(item.getEndDate())>0){
                 iterator.remove();
