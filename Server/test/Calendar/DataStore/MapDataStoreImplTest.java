@@ -3,11 +3,14 @@ package Calendar.DataStore;
 import Calendar.Event.Event;
 import Calendar.Participant.Participant;
 import Calendar.Participant.Person;
+import Calendar.Service.CalendarService;
+import Calendar.Service.CalendarServiceImpl;
 import org.junit.Test;
 
 import java.util.*;
 
 import static org.junit.Assert.*;
+import static org.mockito.Mockito.*;
 
 public class MapDataStoreImplTest {
 
@@ -140,9 +143,64 @@ public class MapDataStoreImplTest {
     }
 
     @Test
-    public void testGetEventByParticipant()throws Exception{
+    public void testGetEventByParticipantNotExist()throws Exception{
 
-        assertTrue(false);
+        //init inputs
+        Participant inputValue = new Person.PersonBuilder("Ivan", "Ivanov")
+                .email("ivanovi@yahoo.com")
+                .phone("223-445-56")
+                .build();
+
+        Participant existingParticipant = new Person.PersonBuilder("Peter", "Petrov")
+                .email("petrovptr@gmail.com")
+                .phone("256-455-46")
+                .build();
+
+
+        Set<Participant> participants = new HashSet<Participant>();
+        participants.add(existingParticipant);
+        Event event = new Event.EventBuilder("lunch", UUID.randomUUID()).participants(participants).build();
+        Event event1 = new Event.EventBuilder("dinner", UUID.randomUUID()).participants(participants).build();
+
+        //init class to test
+        DataStore testCalss = new MapDataStoreImpl();
+        testCalss.addEvent(event);
+        testCalss.addEvent(event1);
+
+        //ivoke method to test
+        List<Event> returnedValue = testCalss.getEventByParticipant(inputValue);
+
+        //assert
+        assertNull(returnedValue);
+    }
+
+    @Test
+    public void testGetEventByParticipantExist()throws Exception{
+
+        //init inputs
+                Participant existingParticipant = new Person.PersonBuilder("Peter", "Petrov")
+                .email("petrovptr@gmail.com")
+                .phone("256-455-46")
+                .build();
+
+        Participant inputValue = existingParticipant;
+
+        Set<Participant> participants = new HashSet<Participant>();
+        participants.add(existingParticipant);
+        Event event = new Event.EventBuilder("lunch", UUID.randomUUID()).participants(participants).build();
+        Event event1 = new Event.EventBuilder("dinner", UUID.randomUUID()).participants(participants).build();
+        List<Event> expectedValue = new LinkedList<Event>(Arrays.asList(event,event1));
+
+        //init class to test
+        DataStore testCalss = new MapDataStoreImpl();
+        testCalss.addEvent(event);
+        testCalss.addEvent(event1);
+
+        //ivoke method to test
+        List<Event> returnedValue = testCalss.getEventByParticipant(inputValue);
+
+        //assert
+        assertEquals(returnedValue, expectedValue);
     }
 
 }

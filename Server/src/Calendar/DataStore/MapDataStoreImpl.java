@@ -13,12 +13,15 @@ public class MapDataStoreImpl implements DataStore{
     private final Map<String, List<UUID>> titleIndex = new HashMap<String, List<UUID>>();
     private final Map<Participant, List<UUID>> participantIndex = new HashMap<Participant, List<UUID>>();
 
+    private final FileSystemStore fileSystemStore = new XmlStoreImpl(".\\xml\\");
+
 
     @Override
     public void addEvent(Event event){
         store.put(event.getId(), event);
         addToTitleIndex(event);
         addToParticipantIndex(event);
+        fileSystemStore.writeEvent(event.getXmlAdapter());
     }
 
     @Override

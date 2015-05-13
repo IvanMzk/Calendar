@@ -10,5 +10,6 @@ public interface Participant extends Serializable {
     String getFullName();
     String getEmail();
     String getPhone();
+    ParticipantXmlAdapter getXmlAdapter();
 
 }

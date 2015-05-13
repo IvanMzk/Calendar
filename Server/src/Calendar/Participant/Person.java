@@ -1,5 +1,7 @@
 package Calendar.Participant;
 
+import javax.xml.bind.annotation.XmlType;
+
 /**
  * Created by ivann on 27.04.15.
  */
@@ -63,6 +65,11 @@ public class Person implements Participant {
     @Override
     public String getFullName(){
         return firstName + secondName;
+    }
+
+    @Override
+    public ParticipantXmlAdapter getXmlAdapter() {
+        return new PersonXmlAdapter(this);
     }
 
     public static class PersonBuilder{

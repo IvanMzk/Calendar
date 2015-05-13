@@ -28,7 +28,7 @@ public class Event implements Serializable {
         this.description = builder.description;
         this.startDate = builder.startDate != null ? (GregorianCalendar) builder.startDate.clone() : null;
         this.endDate = builder.endDate != null ? (GregorianCalendar) builder.endDate.clone() : null;
-        this.participants = builder.participants;
+        this.participants = builder.participants != null ? new HashSet<Participant>(builder.participants) : null;
 
     }
 
@@ -57,6 +57,10 @@ public class Event implements Serializable {
 
     public UUID getId() {
         return id;
+    }
+
+    public EventXmlAdapter getXmlAdapter(){
+        return new EventXmlAdapter(this);
     }
 
     @Override

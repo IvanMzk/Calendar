@@ -1,13 +1,15 @@
 package Calendar;
 
 import Calendar.Event.Event;
+import Calendar.Participant.Participant;
+import Calendar.Participant.Person;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
 import Calendar.Service.CalendarService;
 
 import java.rmi.RemoteException;
-import java.util.UUID;
+import java.util.*;
 
 /**
  * Created by ivan on 04.05.2015.
@@ -19,15 +21,34 @@ public class ClientMain {
         ApplicationContext applicationContext = new ClassPathXmlApplicationContext("clientContext.xml");
         CalendarService calendarService = (CalendarService) applicationContext.getBean("remoteCalendarService");
 
-        String[] titles = {"t1","t2","t2","t4","t2"};
-        String[] descriptions = {"d1","d2","d3","d4","d5"};
+        String[] titles = {"lunch","rest","meeting","work","meeting"};
+        String[] descriptions = {"lunch with colleagues","in some restaurant","job","some project","some project"};
+
+        GregorianCalendar startDate = new GregorianCalendar(2015, Calendar.MAY, 13, 12, 0);
+        GregorianCalendar endDate = new GregorianCalendar(2015, Calendar.MAY, 13, 13, 0);
+
+
+        Participant participant = new Person.PersonBuilder("Ivan", "Ivanov")
+                .email("ivanovi@yahoo.com")
+                .phone("223-445-56")
+                .build();
+
+        Participant participant1 = new Person.PersonBuilder("Peter", "Petrov")
+                .email("petrovptr@gmail.com")
+                .phone("256-455-46")
+                .build();
+
+        Set<Participant> participants = new HashSet<Participant>(Arrays.asList(participant, participant1));
+
         int i = 0;
         Event event;
 
         try{
             for (String title : titles){
                 UUID id = UUID.randomUUID();
-                event = calendarService.addEvent(id, title, descriptions[i], null, null, null);
+                startDate.add(Calendar.HOUR, i);
+                endDate.add(Calendar.HOUR, i);
+                event = calendarService.addEvent(id, title, descriptions[i], startDate, endDate, participants);
                 i++;
                 System.out.println(event.toString());
             }
