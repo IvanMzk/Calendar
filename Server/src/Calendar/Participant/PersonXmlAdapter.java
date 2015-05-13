@@ -5,7 +5,7 @@ import javax.xml.bind.annotation.XmlType;
 /**
  * Created by ivann on 13.05.15.
  */
-@XmlType(name = "person")
+@XmlType(name = "person", propOrder = {"firstName", "secondName", "phone", "email"})
 public class PersonXmlAdapter extends ParticipantXmlAdapter {
 
     private String firstName;
@@ -77,6 +77,16 @@ public class PersonXmlAdapter extends ParticipantXmlAdapter {
         result = 31 * result + (secondName != null ? secondName.hashCode() : 0);
         result = 31 * result + (email != null ? email.hashCode() : 0);
         result = 31 * result + (phone != null ? phone.hashCode() : 0);
+        return result;
+    }
+
+    public Participant getParticipant(){
+
+        Person result = new Person.PersonBuilder(firstName, secondName)
+                .email(email)
+                .phone(phone)
+                .build();
+
         return result;
     }
 }

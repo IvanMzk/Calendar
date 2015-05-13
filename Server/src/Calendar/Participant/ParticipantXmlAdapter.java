@@ -5,4 +5,5 @@ package Calendar.Participant;
  */
 public abstract class ParticipantXmlAdapter {
 
+    public abstract Participant getParticipant();
 }

@@ -1,6 +1,7 @@
 package Calendar.DataStore;
 
 import Calendar.Event.Event;
+import Calendar.Event.EventXmlAdapter;
 import Calendar.Participant.Participant;
 import java.util.*;
 
@@ -14,6 +15,10 @@ public class MapDataStoreImpl implements DataStore{
     private final Map<Participant, List<UUID>> participantIndex = new HashMap<Participant, List<UUID>>();
 
     private final FileSystemStore fileSystemStore = new XmlStoreImpl(".\\xml\\");
+
+    public MapDataStoreImpl(){
+        loadEvents(fileSystemStore);
+    }
 
 
     @Override
@@ -38,6 +43,7 @@ public class MapDataStoreImpl implements DataStore{
             store.remove(id);
             removeFromTitleIndex(event);
             removeFromParticipantIndex(event);
+            fileSystemStore.removeEvent(id);
             return event;
         }
         return null;
@@ -116,4 +122,18 @@ public class MapDataStoreImpl implements DataStore{
 
     }
 
+    private void loadEvent(Event event){
+        store.put(event.getId(), event);
+        addToTitleIndex(event);
+        addToParticipantIndex(event);
+    }
+
+    @Override
+    public void loadEvents(FileSystemStore fileSystemStore) {
+
+        List<EventXmlAdapter> eventXmlAdapters = fileSystemStore.readEvents();
+        for (EventXmlAdapter item : eventXmlAdapters){
+            loadEvent(item.getEvent());
+        }
+    }
 }

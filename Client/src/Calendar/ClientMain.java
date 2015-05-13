@@ -21,12 +21,12 @@ public class ClientMain {
         ApplicationContext applicationContext = new ClassPathXmlApplicationContext("clientContext.xml");
         CalendarService calendarService = (CalendarService) applicationContext.getBean("remoteCalendarService");
 
+/*
         String[] titles = {"lunch","rest","meeting","work","meeting"};
         String[] descriptions = {"lunch with colleagues","in some restaurant","job","some project","some project"};
 
         GregorianCalendar startDate = new GregorianCalendar(2015, Calendar.MAY, 13, 12, 0);
         GregorianCalendar endDate = new GregorianCalendar(2015, Calendar.MAY, 13, 13, 0);
-
 
         Participant participant = new Person.PersonBuilder("Ivan", "Ivanov")
                 .email("ivanovi@yahoo.com")
@@ -36,6 +36,11 @@ public class ClientMain {
         Participant participant1 = new Person.PersonBuilder("Peter", "Petrov")
                 .email("petrovptr@gmail.com")
                 .phone("256-455-46")
+                .build();
+
+        Participant participant2 = new Person.PersonBuilder("Sidor", "Sidorov")
+                .email("sidorov@ukr.net")
+                .phone("597-455-88")
                 .build();
 
         Set<Participant> participants = new HashSet<Participant>(Arrays.asList(participant, participant1));
@@ -52,9 +57,23 @@ public class ClientMain {
                 i++;
                 System.out.println(event.toString());
             }
-            System.out.println(calendarService.getEventByTitle("t2").toString());
+
+            for (Event item : calendarService.getEventByTitle("rest")){
+                calendarService.addParticipant(item, participant2);
+            }
+
         }catch (RemoteException e){
             System.out.println(e.getStackTrace());
         }
+        */
+        try{
+            for (Event item : calendarService.getEventByTitle("rest"))
+                System.out.println(item.toString());
+
+        }catch (RemoteException e){
+            e.printStackTrace();
+        }
+
+
     }
 }

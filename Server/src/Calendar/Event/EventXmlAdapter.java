@@ -16,7 +16,7 @@ import java.util.UUID;
  */
 
 @XmlRootElement(name="event")
-@XmlType(name="event")
+@XmlType(name="event", propOrder = {"id", "title", "description", "startDate", "endDate", "participants"})
 public class EventXmlAdapter {
 
     private UUID id;
@@ -25,6 +25,7 @@ public class EventXmlAdapter {
     private GregorianCalendar startDate;
     private GregorianCalendar endDate;
     //add type element after adding new kind of participant
+    @XmlElementWrapper(name="participants")
     @XmlElements(value = {@XmlElement(name="person",type = PersonXmlAdapter.class)})
     private Set<ParticipantXmlAdapter> participants;
 
@@ -112,6 +113,23 @@ public class EventXmlAdapter {
         result = 31 * result + (startDate != null ? startDate.hashCode() : 0);
         result = 31 * result + (endDate != null ? endDate.hashCode() : 0);
         result = 31 * result + (participants != null ? participants.hashCode() : 0);
+        return result;
+    }
+
+    public Event getEvent(){
+
+        Set<Participant> pureParticipants= new HashSet<Participant>();
+        for (ParticipantXmlAdapter item: participants){
+            pureParticipants.add(item.getParticipant());
+        }
+
+        Event result = new Event.EventBuilder(this.title, this.id)
+                .description(this.description)
+                .startDate(this.startDate)
+                .endDate(this.endDate)
+                .participants(pureParticipants)
+                .build();
+
         return result;
     }
 }

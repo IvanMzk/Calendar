@@ -17,5 +17,6 @@ public interface DataStore {
     Event getEventByID(UUID id);
     List<Event> getEventByTitle(String title);
     List<Event> getEventByParticipant(Participant participant);
+    void loadEvents(FileSystemStore fileSystemStore);
 
 }

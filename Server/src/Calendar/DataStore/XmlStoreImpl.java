@@ -5,6 +5,12 @@ import Calendar.Event.EventXmlAdapter;
 
 import javax.xml.bind.*;
 import java.io.File;
+import java.io.IOException;
+import java.nio.file.*;
+import java.nio.file.attribute.BasicFileAttributes;
+import java.util.LinkedList;
+import java.util.List;
+import java.util.UUID;
 
 /**
  * Created by ivann on 13.05.15.
@@ -39,14 +45,77 @@ public class XmlStoreImpl implements FileSystemStore {
             marshaller.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, true);
             marshaller.marshal(event, file);
             marshaller.marshal(event, System.out);
-
         }catch(JAXBException e){
             e.printStackTrace();
         }
     }
 
     @Override
-    public void readEvents(DataStore dataStore) {
+    public EventXmlAdapter removeEvent(UUID id) {
 
+        String fullFileName  = pathToStore + id.toString()+".xml";
+        Path path = Paths.get(fullFileName);
+        EventXmlAdapter result = readEvent(path);
+        if (null != result){
+            try{
+                Files.delete(path);
+            }
+            catch (IOException e){
+                e.printStackTrace();
+            }
+
+            return result;
+        }
+
+        return null;
+    }
+
+    @Override
+    public EventXmlAdapter readEvent(Path path) {
+
+        EventXmlAdapter result;
+        if (Files.exists(path)) {
+
+            File file = path.toFile();
+            try{
+                JAXBContext context = JAXBContext.newInstance(EventXmlAdapter.class);
+                Unmarshaller unmarshaller = context.createUnmarshaller();
+                result = (EventXmlAdapter) unmarshaller.unmarshal(file);
+                return result;
+            }catch (JAXBException e){
+                e.printStackTrace();
+            }
+        }
+
+        return null;
+    }
+
+    @Override
+    public List<EventXmlAdapter> readEvents() {
+
+        final List<EventXmlAdapter> result = new LinkedList<EventXmlAdapter>();
+        Path path = Paths.get(pathToStore);
+        final Path xml_extension = Paths.get(".xml");
+        try{
+            Files.walkFileTree(path, new SimpleFileVisitor<Path>() {
+
+                        @Override
+                        public FileVisitResult visitFile(Path file, BasicFileAttributes attrs) throws IOException{
+
+
+                            if (attrs.isRegularFile() && file.endsWith(xml_extension)){
+                                result.add(readEvent(file));
+                            }
+                            return FileVisitResult.CONTINUE;
+
+                        }
+                    }
+            );
+
+
+        }catch (IOException e){
+            e.printStackTrace();
+        }
+        return result;
     }
 }
