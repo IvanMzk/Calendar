@@ -68,6 +68,16 @@ public class Person implements Participant {
     }
 
     @Override
+    public String toString() {
+        return "Person{" +
+                "firstName='" + firstName + '\'' +
+                ", secondName='" + secondName + '\'' +
+                ", email='" + email + '\'' +
+                ", phone='" + phone + '\'' +
+                '}';
+    }
+
+    @Override
     public ParticipantXmlAdapter getXmlAdapter() {
         return new PersonXmlAdapter(this);
     }

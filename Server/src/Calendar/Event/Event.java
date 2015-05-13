@@ -99,6 +99,7 @@ public class Event implements Serializable {
                 ", description='" + description + '\'' +
                 ", startDate=" + startDate +
                 ", endDate=" + endDate +
+                ", participants=" + participants +
                 '}';
     }
 

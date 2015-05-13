@@ -103,7 +103,7 @@ public class XmlStoreImpl implements FileSystemStore {
                         public FileVisitResult visitFile(Path file, BasicFileAttributes attrs) throws IOException{
 
 
-                            if (attrs.isRegularFile() && file.endsWith(xml_extension)){
+                            if (attrs.isRegularFile()){
                                 result.add(readEvent(file));
                             }
                             return FileVisitResult.CONTINUE;

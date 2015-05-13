@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<event>
+    <id>c7f0e3a7-5606-41c0-ab69-36fc62a2831e</id>
+    <title>work</title>
+    <description>some project</description>
+    <startDate>2015-05-13T18:00:00+03:00</startDate>
+    <endDate>2015-05-13T19:00:00+03:00</endDate>
+    <participants>
+        <person>
+            <firstName>Ivan</firstName>
+            <secondName>Ivanov</secondName>
+            <phone>223-445-56</phone>
+            <email>ivanovi@yahoo.com</email>
+        </person>
+        <person>
+            <firstName>Peter</firstName>
+            <secondName>Petrov</secondName>
+            <phone>256-455-46</phone>
+            <email>petrovptr@gmail.com</email>
+        </person>
+    </participants>
+</event>
