@@ -62,6 +62,7 @@ public class MapDataStoreImpl implements DataStore{
         return null;
     }
 
+    //local code review (vtegza): majority of methods should be covered with unit tests @ 5/20/2015
     @Override
     public List<Event> getEventByParticipant(Participant participant) {
         if (participantIndex.containsKey(participant)){
@@ -84,6 +85,7 @@ public class MapDataStoreImpl implements DataStore{
 
     private void addToParticipantIndex(Event event){
         Set<Participant> participants = event.getParticipants();
+        //local code review (vtegza): reconstruct this statement @ 5/20/2015
         if (null == participants)
         {return;}
         for (Participant item : participants)
@@ -114,6 +116,8 @@ public class MapDataStoreImpl implements DataStore{
             for (Participant item : participants)
             {
                 List<UUID> idList = participantIndex.get(item);
+                //local code review (vtegza): combine if statement @ 5/20/2015
+                //local code review (vtegza): alwayse check variable !=null, read code @ 5/20/2015
                 if (null != idList)
                 {idList.remove(event.getId());}
                 if (idList.isEmpty()){participantIndex.remove(item);}

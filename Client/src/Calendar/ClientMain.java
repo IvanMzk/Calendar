@@ -1,15 +1,11 @@
 package Calendar;
 
 import Calendar.Event.Event;
-import Calendar.Participant.Participant;
-import Calendar.Participant.Person;
+import Calendar.Service.CalendarService;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
-import Calendar.Service.CalendarService;
-
 import java.rmi.RemoteException;
-import java.util.*;
 
 /**
  * Created by ivan on 04.05.2015.
@@ -20,7 +16,7 @@ public class ClientMain {
 
         ApplicationContext applicationContext = new ClassPathXmlApplicationContext("clientContext.xml");
         CalendarService calendarService = (CalendarService) applicationContext.getBean("remoteCalendarService");
-
+    //local code review (vtegza): clean up commented code @ 5/20/2015
 /*
         String[] titles = {"lunch","rest","meeting","work","meeting"};
         String[] descriptions = {"lunch with colleagues","in some restaurant","job","some project","some project"};

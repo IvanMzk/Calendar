@@ -1,4 +1,5 @@
 //local code review (vtegza): packages name should be in lower case, ex: calendar.datastore @ 04.05.15
+//local code review (vtegza): implement existing code review comments @ 5/20/2015
 package Calendar.DataStore;
 
 import Calendar.Event.Event;

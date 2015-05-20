@@ -1,12 +1,18 @@
 package Calendar.DataStore;
 
-import Calendar.Event.Event;
 import Calendar.Event.EventXmlAdapter;
 
-import javax.xml.bind.*;
+import javax.xml.bind.JAXBContext;
+import javax.xml.bind.JAXBException;
+import javax.xml.bind.Marshaller;
+import javax.xml.bind.Unmarshaller;
 import java.io.File;
 import java.io.IOException;
-import java.nio.file.*;
+import java.nio.file.FileVisitResult;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.nio.file.SimpleFileVisitor;
 import java.nio.file.attribute.BasicFileAttributes;
 import java.util.LinkedList;
 import java.util.List;
@@ -95,6 +101,7 @@ public class XmlStoreImpl implements FileSystemStore {
 
         final List<EventXmlAdapter> result = new LinkedList<EventXmlAdapter>();
         Path path = Paths.get(pathToStore);
+        //local code review (vtegza): nt used variable @ 5/20/2015
         final Path xml_extension = Paths.get(".xml");
         try{
             Files.walkFileTree(path, new SimpleFileVisitor<Path>() {
