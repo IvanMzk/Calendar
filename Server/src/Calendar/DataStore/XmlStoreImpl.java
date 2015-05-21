@@ -26,6 +26,8 @@ public class XmlStoreImpl implements FileSystemStore {
     //path to directory to store xml files
     private String pathToStore;
 
+    public XmlStoreImpl(){}
+
     public XmlStoreImpl(String pathToStore) {
         this.pathToStore = pathToStore;
     }
