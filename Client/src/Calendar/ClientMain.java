@@ -1,11 +1,14 @@
 package Calendar;
 
 import Calendar.Event.Event;
+import Calendar.Participant.Participant;
+import Calendar.Participant.Person;
 import Calendar.Service.CalendarService;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
 import java.rmi.RemoteException;
+import java.util.*;
 
 /**
  * Created by ivan on 04.05.2015.
@@ -17,12 +20,13 @@ public class ClientMain {
         ApplicationContext applicationContext = new ClassPathXmlApplicationContext("clientContext.xml");
         CalendarService calendarService = (CalendarService) applicationContext.getBean("remoteCalendarService");
     //local code review (vtegza): clean up commented code @ 5/20/2015
-/*
+
         String[] titles = {"lunch","rest","meeting","work","meeting"};
         String[] descriptions = {"lunch with colleagues","in some restaurant","job","some project","some project"};
 
         GregorianCalendar startDate = new GregorianCalendar(2015, Calendar.MAY, 13, 12, 0);
         GregorianCalendar endDate = new GregorianCalendar(2015, Calendar.MAY, 13, 13, 0);
+        GregorianCalendar middleDate = new GregorianCalendar(2015, Calendar.MAY, 13, 12, 30);
 
         Participant participant = new Person.PersonBuilder("Ivan", "Ivanov")
                 .email("ivanovi@yahoo.com")
@@ -40,12 +44,23 @@ public class ClientMain {
                 .build();
 
         Set<Participant> participants = new HashSet<Participant>(Arrays.asList(participant, participant1));
+        Set<Participant> participants1 = new HashSet<Participant>(Arrays.asList(participant2));
 
+/*
         int i = 0;
         Event event;
 
         try{
+
+            for (i = 0; i<10; i++){
+                startDate.add(Calendar.DAY_OF_MONTH,i);
+                endDate.add(Calendar.DAY_OF_MONTH,i);
+                event = calendarService.addEvent(UUID.randomUUID(), "Some deals", "business" , startDate, endDate, participants1);
+                System.out.println(event.toString());
+            }
+
             for (String title : titles){
+
                 UUID id = UUID.randomUUID();
                 startDate.add(Calendar.HOUR, i);
                 endDate.add(Calendar.HOUR, i);
@@ -58,12 +73,13 @@ public class ClientMain {
                 calendarService.addParticipant(item, participant2);
             }
 
+
         }catch (RemoteException e){
             System.out.println(e.getStackTrace());
         }
-        */
+*/
         try{
-            for (Event item : calendarService.getEventByTitle("rest"))
+            for (Event item : calendarService.getEventByParticipant(participant2, middleDate))
                 System.out.println(item.toString());
 
         }catch (RemoteException e){

@@ -103,8 +103,6 @@ public class XmlStoreImpl implements FileSystemStore {
 
         final List<EventXmlAdapter> result = new LinkedList<EventXmlAdapter>();
         Path path = Paths.get(pathToStore);
-        //local code review (vtegza): nt used variable @ 5/20/2015
-        final Path xml_extension = Paths.get(".xml");
         try{
             Files.walkFileTree(path, new SimpleFileVisitor<Path>() {
 

@@ -34,6 +34,20 @@ public class AsyncXmlStoreImpl extends XmlStoreImpl implements FileSystemStore {
     }
 
 
+    class WriteEventTask implements Runnable{
+
+        private final EventXmlAdapter event;
+
+        public WriteEventTask(EventXmlAdapter event){
+            this.event = event;
+        }
+
+        public void run(){
+            AsyncXmlStoreImpl.super.writeEvent(event);
+        }
+    }
+
+
     @Override
     public List<EventXmlAdapter> readEvents() {
 
@@ -61,22 +75,19 @@ public class AsyncXmlStoreImpl extends XmlStoreImpl implements FileSystemStore {
                     result.add(item.get());
                 }
                 catch (InterruptedException|ExecutionException e){
-
+                    Thread.currentThread().interrupt();
+                    return result;
                 }
             }
         }catch (IOException e){
             e.printStackTrace();
         }
 
-
-
         return result;
-
-
     }
 
     @Override
     public void writeEvent(EventXmlAdapter event) {
-        super.writeEvent(event);
+        threadPool.submit(new WriteEventTask(event));
     }
 }
