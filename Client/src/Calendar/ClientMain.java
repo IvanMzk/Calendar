@@ -26,7 +26,7 @@ public class ClientMain {
 
         GregorianCalendar startDate = new GregorianCalendar(2015, Calendar.MAY, 13, 12, 0);
         GregorianCalendar endDate = new GregorianCalendar(2015, Calendar.MAY, 13, 13, 0);
-        GregorianCalendar middleDate = new GregorianCalendar(2015, Calendar.MAY, 13, 12, 30);
+        GregorianCalendar middleDate = new GregorianCalendar(2015, Calendar.MAY, 13, 15, 30);
 
         Participant participant = new Person.PersonBuilder("Ivan", "Ivanov")
                 .email("ivanovi@yahoo.com")
@@ -46,19 +46,18 @@ public class ClientMain {
         Set<Participant> participants = new HashSet<Participant>(Arrays.asList(participant, participant1));
         Set<Participant> participants1 = new HashSet<Participant>(Arrays.asList(participant2));
 
-/*
+
         int i = 0;
         Event event;
 
         try{
 
             for (i = 0; i<10; i++){
-                startDate.add(Calendar.DAY_OF_MONTH,i);
-                endDate.add(Calendar.DAY_OF_MONTH,i);
+                startDate.add(Calendar.DAY_OF_MONTH,1);
+                endDate.add(Calendar.DAY_OF_MONTH, 1);
                 event = calendarService.addEvent(UUID.randomUUID(), "Some deals", "business" , startDate, endDate, participants1);
-                System.out.println(event.toString());
             }
-
+/*
             for (String title : titles){
 
                 UUID id = UUID.randomUUID();
@@ -72,15 +71,19 @@ public class ClientMain {
             for (Event item : calendarService.getEventByTitle("rest")){
                 calendarService.addParticipant(item, participant2);
             }
-
+*/
 
         }catch (RemoteException e){
             System.out.println(e.getStackTrace());
         }
-*/
+
         try{
-            for (Event item : calendarService.getEventByParticipant(participant2, middleDate))
-                System.out.println(item.toString());
+            for (Event item : calendarService.getEventByParticipant(participant2, middleDate)){
+                if (item != null){
+                    System.out.println(item.toString());
+                }
+            }
+
 
         }catch (RemoteException e){
             e.printStackTrace();
