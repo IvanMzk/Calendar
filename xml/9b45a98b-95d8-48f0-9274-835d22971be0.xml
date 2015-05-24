@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<event>
+    <id>9b45a98b-95d8-48f0-9274-835d22971be0</id>
+    <title>Some deals</title>
+    <description>business</description>
+    <startDate>2015-05-15T12:00:00+03:00</startDate>
+    <endDate>2015-05-15T13:00:00+03:00</endDate>
+    <participants>
+        <person>
+            <firstName>Sidor</firstName>
+            <secondName>Sidorov</secondName>
+            <phone>597-455-88</phone>
+            <email>sidorov@ukr.net</email>
+        </person>
+    </participants>
+</event>

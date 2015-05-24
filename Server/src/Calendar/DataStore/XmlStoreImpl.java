@@ -64,7 +64,7 @@ public class XmlStoreImpl implements FileSystemStore {
         String fullFileName  = pathToStore + id.toString()+".xml";
         Path path = Paths.get(fullFileName);
         EventXmlAdapter result = readEvent(path);
-        if (null != result){
+        if (result != null){
             try{
                 Files.delete(path);
             }

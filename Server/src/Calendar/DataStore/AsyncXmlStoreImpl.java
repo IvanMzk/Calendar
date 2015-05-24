@@ -7,6 +7,7 @@ import java.nio.file.*;
 import java.nio.file.attribute.BasicFileAttributes;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.UUID;
 import java.util.concurrent.*;
 
 /**
@@ -14,11 +15,14 @@ import java.util.concurrent.*;
  */
 public class AsyncXmlStoreImpl extends XmlStoreImpl implements FileSystemStore {
 
-    private final ExecutorService threadPool;
+    private final ExecutorService readThreadPool;
+    private ExecutorService writeThreadPool;
 
     public AsyncXmlStoreImpl(String path){
         super(path);
-        threadPool = Executors.newCachedThreadPool();
+        readThreadPool = Executors.newCachedThreadPool();
+        writeThreadPool = Executors.newCachedThreadPool();
+
     }
 
     class ReadEventTask implements Callable<EventXmlAdapter>{
@@ -63,7 +67,7 @@ public class AsyncXmlStoreImpl extends XmlStoreImpl implements FileSystemStore {
 
 
                             if (attrs.isRegularFile()) {
-                                futures.add(threadPool.submit(new ReadEventTask(file)));
+                                futures.add(readThreadPool.submit(new ReadEventTask(file)));
                             }
                             return FileVisitResult.CONTINUE;
                         }
@@ -88,6 +92,39 @@ public class AsyncXmlStoreImpl extends XmlStoreImpl implements FileSystemStore {
 
     @Override
     public void writeEvent(EventXmlAdapter event) {
-        threadPool.submit(new WriteEventTask(event));
+
+        if (this.writeThreadPool.isShutdown()) {
+            this.writeThreadPool = Executors.newCachedThreadPool();
+            writeThreadPool.submit(new WriteEventTask(event));
+        }
+        else{
+            writeThreadPool.submit(new WriteEventTask(event));
+        }
+
     }
+
+    @Override
+    public EventXmlAdapter removeEvent(UUID id) {
+
+        EventXmlAdapter result = super.removeEvent(id);
+        if (result != null){
+            return result;
+        }
+        else{
+            //file must exist, it might not be yet writing on file system
+            //so wait for writing complete
+            writeThreadPool.shutdown();
+            try{
+                writeThreadPool.awaitTermination(5000, TimeUnit.MILLISECONDS);
+            }
+            catch (InterruptedException e){
+                Thread.currentThread().interrupt();
+                return super.removeEvent(id);
+            }
+            return super.removeEvent(id);
+        }
+    }
+
+
+
 }

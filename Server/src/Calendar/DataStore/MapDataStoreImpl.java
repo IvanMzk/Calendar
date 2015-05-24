@@ -15,7 +15,7 @@ public class MapDataStoreImpl implements DataStore{
     private final Map<Participant, List<UUID>> participantIndex = new HashMap<Participant, List<UUID>>();
 
     //private final FileSystemStore fileSystemStore = new XmlStoreImpl(".\\xml\\");
-    private final FileSystemStore fileSystemStore = new AsyncXmlStoreImpl(".\\xml1\\");
+    private final FileSystemStore fileSystemStore = new AsyncXmlStoreImpl(".\\xml\\");
 
     public MapDataStoreImpl(){
         loadEvents(fileSystemStore);

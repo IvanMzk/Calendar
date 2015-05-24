@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<event>
+    <id>400de30c-be44-4c13-99c3-4b1c541ea1ea</id>
+    <title>lunch</title>
+    <description>lunch with colleagues</description>
+    <startDate>2015-05-23T12:00:00+03:00</startDate>
+    <endDate>2015-05-23T13:00:00+03:00</endDate>
+    <participants>
+        <person>
+            <firstName>Ivan</firstName>
+            <secondName>Ivanov</secondName>
+            <phone>223-445-56</phone>
+            <email>ivanovi@yahoo.com</email>
+        </person>
+        <person>
+            <firstName>Peter</firstName>
+            <secondName>Petrov</secondName>
+            <phone>256-455-46</phone>
+            <email>petrovptr@gmail.com</email>
+        </person>
+    </participants>
+</event>
