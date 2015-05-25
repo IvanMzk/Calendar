@@ -43,43 +43,9 @@ public class ClientMain {
                 .phone("597-455-88")
                 .build();
 
-        Set<Participant> participants = new HashSet<Participant>(Arrays.asList(participant, participant1));
-        Set<Participant> participants1 = new HashSet<Participant>(Arrays.asList(participant2));
-
-
-        int i = 0;
-        Event event;
-/*
         try{
 
-            for (i = 0; i<10; i++){
-                event = calendarService.addEvent(UUID.randomUUID(), "Some deals", "business" , startDate, endDate, participants1);
-                startDate.add(Calendar.DAY_OF_MONTH,1);
-                endDate.add(Calendar.DAY_OF_MONTH, 1);
-            }
-
-            i = 0;
-            for (String title : titles){
-                event = calendarService.addEvent(UUID.randomUUID(), title, descriptions[i], startDate, endDate, participants);
-                i++;
-                startDate.add(Calendar.HOUR, 2);
-                endDate.add(Calendar.HOUR, 2);
-                //System.out.println(event.toString());
-            }
-
-
-            for (Event item : calendarService.getEventByTitle("rest")){
-                calendarService.addParticipant(item, participant2);
-            }
-
-
-        }catch (RemoteException e){
-            System.out.println(e.getStackTrace());
-        }
-*/
-        try{
-
-            for (Event item : calendarService.getEventByParticipant(participant2, null)){
+            for (Event item : calendarService.getEventByParticipant(participant1, null)){
                 if (item != null){
                     System.out.println(item.toString());
                 }
